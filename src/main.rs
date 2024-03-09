@@ -4,11 +4,26 @@ use csv::StringRecord;
 use prettytable::{Table, Row, Cell};
 
 fn main() {
+    loop {
+        main_process();
+
+        println!("終了しますか？ (Y/N)");
+        
+        let mut input = String::new();
+        std::io::stdin().read_line(&mut input).expect("入力の読み取りに失敗しました");
+        
+        if input.trim().to_lowercase().as_str() == "y" {
+            break;
+        }
+    }
+}
+
+fn main_process() {
     print!("csvファイルのパスを入力してください: ");
     std::io::stdout().flush().unwrap(); // 表示するためにバッファをフラッシュ
 
     let mut path = String::new();
-    std::io::stdin().read_line(&mut path).unwrap();
+    std::io::stdin().read_line(&mut path).expect("入力の読み取りに失敗しました");
     path = path.trim().to_string(); // 末尾の改行文字を消す
 
     let file = match file_open(&path) {
@@ -35,9 +50,9 @@ fn main() {
     std::io::stdout().flush().unwrap(); // 表示するためにバッファをフラッシュ
 
     let mut sort_check = String::new();
-    std::io::stdin().read_line(&mut sort_check).unwrap();
+    std::io::stdin().read_line(&mut sort_check).expect("入力の読み取りに失敗しました");
 
-    if let "Y" | "y" = sort_check.trim() {
+    if let "Y" = sort_check.trim().to_uppercase().as_str() {
         println!("------キー一覧------");
         for (index, record) in print_data[0].iter().enumerate() {
             println!("[{}] {}", index, record);
@@ -50,7 +65,7 @@ fn main() {
             std::io::stdout().flush().unwrap();
     
             let mut input_index = String::new();
-            std::io::stdin().read_line(&mut input_index).unwrap();
+            std::io::stdin().read_line(&mut input_index).expect("入力の読み取りに失敗しました");
             let index = input_index.trim().parse::<usize>();
 
             match index {
@@ -73,10 +88,10 @@ fn main() {
         std::io::stdout().flush().unwrap(); // 表示するためにバッファをフラッシュ
 
         let mut input_asc_check = String::new();
-        std::io::stdin().read_line(&mut input_asc_check).unwrap();
+        std::io::stdin().read_line(&mut input_asc_check).expect("入力の読み取りに失敗しました");
         let asc_check = input_asc_check.trim();
 
-        print_data = sort_records(&print_data, sort_index, asc_check == "Y");
+        print_data = sort_records(&print_data, sort_index, asc_check.to_uppercase().as_str() == "Y");
     }
 
     let table = create_table_from_csv(&print_data);

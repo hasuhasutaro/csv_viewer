@@ -7,7 +7,8 @@ fn main() {
     loop {
         main_process();
 
-        println!("終了しますか？ (Y/N)");
+        print!("終了しますか？ (Y/N):");
+        std::io::stdout().flush().unwrap(); // 表示するためにバッファをフラッシュ
         
         let mut input = String::new();
         std::io::stdin().read_line(&mut input).expect("入力の読み取りに失敗しました");
@@ -46,7 +47,7 @@ fn main_process() {
 
     let mut print_data = csv_data;
 
-    print!("ソートしますか？ Y/N: ");
+    print!("ソートしますか？ (Y/N): ");
     std::io::stdout().flush().unwrap(); // 表示するためにバッファをフラッシュ
 
     let mut sort_check = String::new();
@@ -84,7 +85,7 @@ fn main_process() {
             }
         }
 
-        print!("昇順にソートしますか？ Y/N: ");
+        print!("昇順にソートしますか？ (Y/N): ");
         std::io::stdout().flush().unwrap(); // 表示するためにバッファをフラッシュ
 
         let mut input_asc_check = String::new();

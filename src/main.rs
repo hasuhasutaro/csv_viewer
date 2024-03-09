@@ -74,7 +74,7 @@ fn main() {
 
         let mut input_asc_check = String::new();
         std::io::stdin().read_line(&mut input_asc_check).unwrap();
-        let mut asc_check = input_asc_check.trim();
+        let asc_check = input_asc_check.trim();
 
         print_data = sort_records(&print_data, sort_index, asc_check == "Y");
     }
